@@ -28,6 +28,9 @@
           </div>
     <!-- 右边产品列表 -->
      <div class="index-right">
+         <!-- 轮播图 -->
+          <slide-show :slides="slides" :inv = 'slideSpeed'></slide-show>
+         <!-- 轮播图 -->
            <div class="index-board-list">
              <div class="index-board-item" v-for="(item,index) in boardList" 
                 :class="[{'line-last' : index % 2 !==0},
@@ -47,10 +50,45 @@
     <!--  -->
 </template>
 <script>
-
+// 插入子组件
+import slideShow from '../components/slideShow'
 export default {
-    data(){
+   components:{
+      slideShow
+   },
+   created:function () {
+     this.$http.post('getList',{userId:123})
+     .then(function(data){
+         console.log(data)
+     },function(err){
+   console.log(err)
+     })
+} ,
+   data(){
  return {
+   slideSpeed: 2000,
+      slides: [
+        {
+          src: require('../assets/slideShow/pic1.jpg'),
+          title: 'xxx1',
+          href: 'detail/analysis'
+        },
+        {
+          src: require('../assets/slideShow/pic2.jpg'),
+          title: 'xxx2',
+          href: 'detail/count'
+        },
+        {
+          src: require('../assets/slideShow/pic3.jpg'),
+          title: 'xxx3',
+          href: 'http://xxx.xxx.com'
+        },
+        {
+          src: require('../assets/slideShow/pic4.jpg'),
+          title: 'xxx4',
+          href: 'detail/forecast'
+        }
+      ],
        boardList:[
            {
           title: '开放产品',
@@ -81,7 +119,7 @@ export default {
           saleout: false
         }
        ],
-         newsList:[
+      newsList:[
         {
               title: '数据统计',
               url: 'http://starcraft.com'
@@ -148,6 +186,7 @@ export default {
                 }
           }
      }
+
     }
     
 }

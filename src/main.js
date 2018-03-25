@@ -3,10 +3,13 @@
 import Vue from 'vue'
 import Layout from './components/layout'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 import IndexPage from './pages/index'
 
 /* eslint-disable no-new */
 Vue.use(VueRouter)
+// VueResource 不需要其他的配置
+Vue.use(VueResource)
 // 实例化vue-router
 let router = new VueRouter({
        mode:"history",
@@ -17,6 +20,7 @@ let router = new VueRouter({
      }
        ]
 })
+
 new Vue({
   el: '#app',
   router,
