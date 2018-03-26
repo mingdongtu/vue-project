@@ -2,12 +2,11 @@
      <div>
          <div class="dialog-wrap" v-if="isShow">
              <!-- 一个标签绑定一个事件，一个事件触发一个具体的方法，一个方法调用的是父 -->
-              <div class="dialog-cover"  @click="closeMyself">
-                  <div class="dialog-content">
+              <div class="dialog-cover"  @click="closeMyself"></div>
+               <div class="dialog-content">
                       <p class="dialog-close" @click="closeMyself">x</p>
-                       <slot name="mySlot">23131232</slot>
+                       <slot name="mySlot"></slot>
                   </div>
-              </div>
          </div>
      </div>
 </template>
@@ -28,7 +27,7 @@ export default {
     },
     methods:{
            closeMyself(){
-            //    $emit(方法用于触发当前实例上的事件
+            //    $emit方法用于触发当前实例上的事件
               this.$emit('on-close')
            }
     }

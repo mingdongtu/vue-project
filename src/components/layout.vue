@@ -23,25 +23,30 @@
         </div>
         <div class="app-foot">@ 2016 this Tu Ming Dong's project!</div>
         <!-- 监听关闭模态框的的事件，一个自定义事件绑定一个具体方法 -->
+         
+        
         <my-dialog  :is-show="isShowAboutDialog" @on-close="closeDialog('isShowAboutDialog')">
-            <p slot='mySlot'>关于</p>    
+            <p slot='mySlot'>1233333333333333333333333333333333333333333333333333333333333333333333333333</p>    
         </my-dialog> 
          <my-dialog  :is-show="isShowLogDialog" @on-close="closeDialog('isShowLogDialog')">
-            <p slot='mySlot'>登录</p>    
+            <log-form slot='mySlot'></log-form>   
         </my-dialog>
          <my-dialog  :is-show="isShowRegDialog" @on-close="closeDialog('isShowRegDialog')">
-            <p slot='mySlot'>注册</p>    
+            <reg-form slot='mySlot'></reg-form>  
         </my-dialog>
     </div>
 </template>
 <script>
 // 引入登录弹窗这个子组件
 import Dialog from "./dialog"
+import LogForm from './logForm'
+import regForm from './regForm'
 export default {
   components:{
-        MyDialog:Dialog
-      }
-  ,
+        MyDialog:Dialog,
+        LogForm:LogForm,
+        regForm:regForm
+      },
       data(){
             return {
                 isShowAboutDialog:false,
@@ -59,9 +64,9 @@ export default {
            regClick(){
             this.isShowRegDialog=true
            },
-
            closeDialog(attr){
                 this[attr]=false
+                
            }
       }
 }
