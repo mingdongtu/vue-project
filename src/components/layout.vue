@@ -6,11 +6,14 @@
                  <img src="../assets/logo.png" alt="">
                  <div class="head-nav">
                        <ul class="nav-list">
-                           <li @click="logClick">登录</li>
-                           <li class="nav-pile">|</li>
-                           <li @click="regClick">注册</li>
-                           <li class="nav-pile">|</li>
-                           <li @click="aboutClick">关于</li>
+                            <li>{{userName}}</li>
+                            <li class="nav-pile"  v-if="userName!==''">|</li>
+                            <li @click="quit"  v-if="userName!==''" >退出</li>
+                            <li @click="logClick"  v-if="userName===''">登录</li>
+                            <li class="nav-pile"   v-if="userName===''">|</li>
+                            <li @click="regClick"  v-if="userName===''">注册</li>
+                            <li class="nav-pile"   v-if="userName===''">|</li>
+                            <li @click="aboutClick">关于</li>
                        </ul>
                  </div>
               </div>
@@ -29,7 +32,7 @@
             <p slot='mySlot'>1233333333333333333333333333333333333333333333333333333333333333333333333333</p>    
         </my-dialog> 
          <my-dialog  :is-show="isShowLogDialog" @on-close="closeDialog('isShowLogDialog')">
-            <log-form slot='mySlot'></log-form>   
+            <log-form slot='mySlot' @on-close="closeDialog('isShowLogDialog')"  @has-log="onSuccess"></log-form>   
         </my-dialog>
          <my-dialog  :is-show="isShowRegDialog" @on-close="closeDialog('isShowRegDialog')">
             <reg-form slot='mySlot'></reg-form>  
@@ -51,7 +54,8 @@ export default {
             return {
                 isShowAboutDialog:false,
                 isShowLogDialog:false,
-                isShowRegDialog:false
+                isShowRegDialog:false,
+                userName:''
             }
       },
       methods:{
@@ -67,6 +71,10 @@ export default {
            closeDialog(attr){
                 this[attr]=false
                 
+           },
+           onSuccess(data){
+             this.userName=data.name
+             this.closeDialog('isShowLogDialog')
            }
       }
 }

@@ -22,7 +22,7 @@
           <a class="button"   @click="onLogin">登录</a>
         </div>
       </div>
-      <p></p>
+      <p>{{errorText}}</p>
     </div>
   
   </div>
@@ -47,6 +47,10 @@ export default {
               status=true
               errorText = ''
             }
+            if(!this.userFlag){
+                 errorText = ''
+                 this.userFlag = true
+            }
             return {  //返回一个对象，可以按照es6标准进行简写
                  status,
                  errorText
@@ -61,6 +65,10 @@ export default {
                   status=true
                   errorText = ''
              }
+             if(!this.passwordFlag){
+                  errorText = ''
+                  this.passwordFlag = true
+             }
              return {
                status,
                errorText
@@ -71,7 +79,18 @@ export default {
   methods:{
        onLogin(){
             if(!this.userErrors.status||!this.passwordErrors){
-                   alert('用户名或密码器不合格！')
+                   this.errorText = '部分选项未通过！'
+            }else{
+                // 登录成功，将模态框隐藏
+                alert('登录成功！')  //注意：这是一个同步的方法
+                // this.$emit('on-close') 
+                // 调用接口实现登录
+                this.$http.get('api/login').then((res)=>{
+                  // 注意箭头函数下this的用法：this是继承而来; 默认指向在定义它时所处的对象(宿主对象),而不是执行时的对象
+                       this.$emit('has-log',res.data)
+                },(error)=>{
+                     console.log(error)
+                })
             }
        }
   }

@@ -1,12 +1,15 @@
 <template>
      <div>
-         <div class="dialog-wrap" v-if="isShow">
+         <div class="dialog-wrap">
              <!-- 一个标签绑定一个事件，一个事件触发一个具体的方法，一个方法调用的是父 -->
-              <div class="dialog-cover"  @click="closeMyself"></div>
-               <div class="dialog-content">
+             <!-- 注意transition必须写在v-if外面 -->
+              <div class="dialog-cover"  @click="closeMyself"  v-if="isShow"></div>
+              <transition name="drop">
+                 <div class="dialog-content"   v-if="isShow">
                       <p class="dialog-close" @click="closeMyself">x</p>
                        <slot name="mySlot"></slot>
                   </div>
+              </transition>
          </div>
      </div>
 </template>
