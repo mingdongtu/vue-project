@@ -66,7 +66,7 @@ export default {
 } ,
    data(){
  return {
-   slideSpeed: 2000,
+   slideSpeed: 1400,
       slides: [
         {
           src: require('../assets/slideShow/pic1.jpg'),

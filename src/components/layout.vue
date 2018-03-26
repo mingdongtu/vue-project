@@ -1,15 +1,16 @@
 <template>
+<!--注意:每个组件只有一个统一的根节点-->
     <div>
         <div class="app-head">
               <div class="app-head-inner">
                  <img src="../assets/logo.png" alt="">
                  <div class="head-nav">
                        <ul class="nav-list">
-                           <li>登录</li>
+                           <li @click="logClick">登录</li>
                            <li class="nav-pile">|</li>
-                           <li>注册</li>
+                           <li @click="regClick">注册</li>
                            <li class="nav-pile">|</li>
-                           <li>关于</li>
+                           <li @click="aboutClick">关于</li>
                        </ul>
                  </div>
               </div>
@@ -21,14 +22,47 @@
                
         </div>
         <div class="app-foot">@ 2016 this Tu Ming Dong's project!</div>
+        <!-- 监听关闭模态框的的事件，一个自定义事件绑定一个具体方法 -->
+        <my-dialog  :is-show="isShowAboutDialog" @on-close="closeDialog('isShowAboutDialog')">
+            <p slot='mySlot'>关于</p>    
+        </my-dialog> 
+         <my-dialog  :is-show="isShowLogDialog" @on-close="closeDialog('isShowLogDialog')">
+            <p slot='mySlot'>登录</p>    
+        </my-dialog>
+         <my-dialog  :is-show="isShowRegDialog" @on-close="closeDialog('isShowRegDialog')">
+            <p slot='mySlot'>注册</p>    
+        </my-dialog>
     </div>
 </template>
 <script>
+// 引入登录弹窗这个子组件
+import Dialog from "./dialog"
 export default {
+  components:{
+        MyDialog:Dialog
+      }
+  ,
       data(){
             return {
-                  msg:'i am god'
+                isShowAboutDialog:false,
+                isShowLogDialog:false,
+                isShowRegDialog:false
             }
+      },
+      methods:{
+           aboutClick(){
+                this.isShowAboutDialog=true
+           },
+           logClick(){
+                this.isShowLogDialog=true
+           },
+           regClick(){
+            this.isShowRegDialog=true
+           },
+
+           closeDialog(attr){
+                this[attr]=false
+           }
       }
 }
 </script>
