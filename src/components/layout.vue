@@ -29,9 +29,11 @@
          
         
         <my-dialog  :is-show="isShowAboutDialog" @on-close="closeDialog('isShowAboutDialog')">
-            <p slot='mySlot'>1233333333333333333333333333333333333333333333333333333333333333333333333333</p>    
+            <p slot='mySlot'>3333333333333333333333333333</p>    
         </my-dialog> 
+        <!--:冒号绑定自定义属性，用于向子组件传递数据；@绑定自定义事件，用于像子组件传递事件 -->
          <my-dialog  :is-show="isShowLogDialog" @on-close="closeDialog('isShowLogDialog')">
+           <!-- 这里若log-form组件里面添加了slot标签的name属性，这里的slot属性就不能少 -->
             <log-form slot='mySlot' @on-close="closeDialog('isShowLogDialog')"  @has-log="onSuccess"></log-form>   
         </my-dialog>
          <my-dialog  :is-show="isShowRegDialog" @on-close="closeDialog('isShowRegDialog')">
