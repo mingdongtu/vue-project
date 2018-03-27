@@ -2,8 +2,8 @@
        <div class="detail-wrap">
     <div class="detail-left">
       <div class="product-board">
-        <img  src="../assets/images/1.png">
-        <ul>
+        <img  :src="productIcon">
+        <ul> 
           <router-link v-for="item in products" :to="{ path: item.path }" 
           tag="li" active-class="active">
             {{ item.name }}
@@ -47,7 +47,7 @@ export default {
           active: false
         }
       ],
-      imgMap: {   //注意这里图片要用require()来获取 
+      imgMap: {   //注意这里图片要用require()来获取 :人工做的一个映射
         '/detail/count': require("../assets/images/1.png"),
         '/detail/forecast': require("../assets/images/2.png"),
         '/detail/analysis': require("../assets/images/3.png"),
@@ -55,6 +55,11 @@ export default {
       }
     }
   },
+  computed:{
+       productIcon(){
+             return this.imgMap[this.$route.path]
+       }
+  }
 }
 </script>
 
