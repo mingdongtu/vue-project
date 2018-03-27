@@ -15,6 +15,7 @@
         <!-- 缓存 -->
       <keep-alive>  
           <!-- 内容组件 -->
+          
         <router-view></router-view>
       </keep-alive>
     </div>
