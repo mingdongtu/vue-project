@@ -24,6 +24,7 @@ let router = new VueRouter({
      },
    {
     path:'/detail',
+    redirect:'/detail/analysis',
     component: DetailPage,
     children:[
       {
