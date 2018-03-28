@@ -11,7 +11,7 @@
               </div>
               <div class="sales-board-line-right">
                 <!-- 计数组件 -->
-                <v-counter :max='100' :min="6"></v-counter>
+                <v-counter :max='100' :min="6" @on-change="onParamChange('buyNum',$event)"></v-counter>
               </div>
           </div>
           <div class="sales-board-line">
@@ -19,7 +19,7 @@
                   产品类型：
               </div>
               <div class="sales-board-line-right">
-                 <v-selection :selections="buyTypes"></v-selection>
+                 <v-selection :selections="buyTypes" @on-change="onParamChange('buyType',$event)"></v-selection>
               </div>
           </div>
           <div class="sales-board-line">
@@ -27,7 +27,7 @@
                   有效时间：
               </div>
               <div class="sales-board-line-right">
-                <chooser :selections="periodList"></chooser>
+                <chooser :selections="periodList" @on-change="onParamChange('period',$event)"></chooser>
               </div>
           </div>
           <div class="sales-board-line">
@@ -35,7 +35,7 @@
                   产品版本：
               </div>
               <div class="sales-board-line-right">
-                  <m-choose :selections="versionList"></m-choose>
+                  <m-choose :selections="versionList" @on-change="onParamChange('versions',$event)"></m-choose>
               </div>
           </div>
           <div class="sales-board-line">
@@ -114,6 +114,7 @@ import VSelection from '../../components/selection'
 import VCounter from '../../components/counter'
 import MChoose from '../../components/mult-choose'
 import chooser from '../../components/chooser'
+import _ from 'lodash'
 export default {
      components:{
         VSelection,
@@ -123,6 +124,11 @@ export default {
      },
     data(){
          return {
+              buyNum:0,
+              buyType:{},
+              // 版本可能存在多个选项，所以要以数组形式
+              versions:[],
+              period:{},
              buyTypes:[
                {
                  label:'入门版',
@@ -166,6 +172,31 @@ export default {
         }
       ],
          }
+    },
+    methods:{
+      onParamChange(attr,val){
+          // val代表的是购买的数量
+            this[attr] = val
+            console.log(attr,this[attr])
+      },
+      getPrice(){
+        let buyVersionsArray = _.map(this.versions,(item)=>{
+             return item.value
+        })
+          // 从后台请求价格
+      let reqParams = {
+           buyNumber:this.buyNumber,
+           buyType:this.buyType.value,
+           period:this.period.value,
+           version:buyVersionsArray.join(',')
+      }
+      this.$http.post("api/getPrice",reqParams).then((res)=>{
+        let data = res.data
+           
+      })
+      }
+
+      
     }
 }
 </script>

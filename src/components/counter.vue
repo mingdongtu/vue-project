@@ -27,6 +27,13 @@ export default {
 
         }
     },
+    watch:{
+       number(){
+            // 由里而外触发父组件对应自定义事件的方法
+            this.$emit('on-change',this.number)
+           
+       }
+    },
     methods:{
          minus(){
      if(this.number<= this.min){
@@ -39,6 +46,7 @@ export default {
            return
        }
           this.number++
+          this.$emit('on-change',)
          },
          fixNumber(){
 // 首先判断内容里面是否含有字符串，如果有就将字符串清除掉

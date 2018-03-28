@@ -28,3 +28,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 #在js里面引用图片，需要使用require()方法来引入，否则就会被当成一个字符串，无法完成渲染
 
 #如果我们不想用户访问某个路由下面的路径，可以使用redirect重定向，自动跳转到指定页面
+
+#this.$emit('on-change',this.number) 由里而外触发父组件对应自定义事件的方法
+            

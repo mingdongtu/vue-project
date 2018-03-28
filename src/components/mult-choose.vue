@@ -34,7 +34,10 @@ export default {
                    return idx !== index
             })
         }
-        // 将on-change
+        let mowObjArray = _.map(this.nowIndexes,(idx)=>{
+               return this.selections[idx]
+        })
+      this.$emit('on-change',mowObjArray)
     },
     checkActive(index){
 

@@ -37,7 +37,7 @@ export default {
                 this.nowIndex=index
                 this.isDrop=!this.isDrop
                 // 触发一个onchange事件
-                this.$emit('on-change',this.nowIndex)
+                this.$emit('on-change',this.selections[this.nowIndex])
           
                 
          }

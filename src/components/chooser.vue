@@ -22,6 +22,9 @@ export default {
     methods:{
         cyear(index){
             this.nowIndex=index
+            // 选择年限，因为年限是个对象
+            console.log(this.selections)
+            this.$emit('on-change',this.selections[index])
         }
     }
 }
