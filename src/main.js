@@ -10,6 +10,7 @@ import DetailAnaPage from './pages/detail/analysis'
 import DetailCouPage from './pages/detail/count'
 import DetailForPage from './pages/detail/forecast'
 import DetailPubPage from './pages/detail/publish'
+import OrderListPage from './pages/orderList'
 /* eslint-disable no-new */
 Vue.use(VueRouter)
 // VueResource 不需要其他的配置
@@ -22,6 +23,10 @@ let router = new VueRouter({
           path: '/',
           component:IndexPage
      },
+     {
+      path: '/orderList',
+      component:OrderListPage
+ },
    {
     path:'/detail',
     redirect:'/detail/analysis',

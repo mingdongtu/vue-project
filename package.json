@@ -14,6 +14,8 @@
     "json-server": "^0.12.1",
     "lodash": "^4.17.5",
     "vue": "^2.5.2",
+    "vue-date-picker": "^1.0.2",
+    "vue-md-date-picker": "^1.0.15",
     "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

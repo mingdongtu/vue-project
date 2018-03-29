@@ -103,13 +103,14 @@
         <div class="button buy-dialog-btn" @click="confirmBuy">
           确认购买
         </div>
-          </div>
+      </div>
       </my-dialog>
-     
       <my-dialog >
         支付失败！
       </my-dialog>
-      <check-order ></check-order>
+      <!-- 购买状态组件:将is-show-check-dialog属性绑定的数据传递到子组件 -->
+      <check-order :is-show-check-dialog="isShowCheckOrder"
+         @on-close-check-dialog="hideCheckDialog"></check-order>
 
   </div>
 </template>
@@ -124,6 +125,8 @@ import _ from 'lodash'
 import Dialog from '../../components/dialog'
 // 引入选择银行组件
 import choosebanker from '../../components/chooseBanker'
+// 引入点击支付后状态弹窗组件
+import checkOrder from '../../components/checkOrder'
 export default {
      components:{
         VSelection,
@@ -131,7 +134,8 @@ export default {
         MChoose,
         chooser,
         MyDialog:Dialog,
-        choosebanker
+        choosebanker,
+        checkOrder
      },
     data(){
          return {
@@ -142,6 +146,7 @@ export default {
               versions:[],
               period:{},
               isShowPayDialog:false,
+              isShowCheckOrder:false,
              buyTypes:[
                {
                  label:'入门版',
@@ -199,9 +204,13 @@ export default {
              version:buyVersionsArray.join(','),
              bankId:this.bankId
         }
+        this.isShowCheckOrder = true
+             this.isShowCheckOrder = true
         this.$http.post('/api/createOrder',reqParams)
         .then((res)=>{
             this.orderId = res.data.orderId
+           
+            // this.isShowPayDialog = false
         },(err)=>{
              console.log(err)
         })
@@ -217,6 +226,10 @@ export default {
       },
       hidePayDialog(){
         this.isShowPayDialog = false
+      },
+      hideCheckDialog(){
+        // 隐藏状态检查弹窗
+  this.isShowCheckOrder=false
       },
       onParamChange(attr,val){
           // val代表的是购买的数量
