@@ -11,7 +11,7 @@
               </div>
               <div class="sales-board-line-right">
                 <!-- 计数组件 -->
-                <v-counter :max='100' :min="6" @on-change="onParamChange('buyNum',$event)"></v-counter>
+                <v-counter :max='100' :min="1" @on-change="onParamChange('buyNum',$event)"></v-counter>
               </div>
           </div>
           <div class="sales-board-line">
@@ -43,13 +43,13 @@
                   总价：
               </div>
               <div class="sales-board-line-right">
-                元
+                   {{price}}   元
               </div>
           </div>
           <div class="sales-board-line">
               <div class="sales-board-line-left">&nbsp;</div>
               <div class="sales-board-line-right">
-                  <div class="button">
+                  <div class="button" @click="showPayDialog">
                     立即购买
                   </div>
               </div>
@@ -77,8 +77,9 @@
           <li>用户所在地理区域分布状况等</li>
         </ul>
       </div>
-      <my-dialog >
-        <table class="buy-dialog-table">
+      <my-dialog :is-show="isShowPayDialog" @on-close="hidePayDialog"> 
+          <div slot="mySlot">
+             <table class="buy-dialog-table" >
           <tr>
             <th>购买数量</th>
             <th>产品类型</th>
@@ -87,25 +88,29 @@
             <th>总价</th>
           </tr>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ buyNum }}</td>
+            <td>{{ buyType.label }}</td>
+            <td>{{ period.label }}</td>
             <td>
-              <span ></span>
+              <span v-for="item in versions">{{ item.label }}</span>
             </td>
-            <td></td>
+            <td>{{ price }}</td>
           </tr>
         </table>
         <h3 class="buy-dialog-title">请选择银行</h3>
-        <bank-chooser></bank-chooser>
-        <div class="button buy-dialog-btn" >
+       <!-- 组件里面插入内容，内容里面再插入组件 -->
+        <choosebanker @on-bank="onChangeBanks($event)"></choosebanker>
+        <div class="button buy-dialog-btn" @click="confirmBuy">
           确认购买
         </div>
+          </div>
       </my-dialog>
+     
       <my-dialog >
         支付失败！
       </my-dialog>
       <check-order ></check-order>
+
   </div>
 </template>
 
@@ -115,20 +120,28 @@ import VCounter from '../../components/counter'
 import MChoose from '../../components/mult-choose'
 import chooser from '../../components/chooser'
 import _ from 'lodash'
+// 引入弹窗组件
+import Dialog from '../../components/dialog'
+// 引入选择银行组件
+import choosebanker from '../../components/chooseBanker'
 export default {
      components:{
         VSelection,
         VCounter,
         MChoose,
-        chooser
+        chooser,
+        MyDialog:Dialog,
+        choosebanker
      },
     data(){
          return {
               buyNum:0,
               buyType:{},
+              price:0,
               // 版本可能存在多个选项，所以要以数组形式
               versions:[],
               period:{},
+              isShowPayDialog:false,
              buyTypes:[
                {
                  label:'入门版',
@@ -174,10 +187,43 @@ export default {
          }
     },
     methods:{
+      confirmBuy(){
+        //  确认购买
+        let buyVersionsArray = _.map(this.versions,(item)=>{
+             return item.value
+        })
+        let reqParams = {
+             buyNumber:this.buyNum,
+             buyType:this.buyType.value,
+             period:this.period.value,
+             version:buyVersionsArray.join(','),
+             bankId:this.bankId
+        }
+        this.$http.post('/api/createOrder',reqParams)
+        .then((res)=>{
+            this.orderId = res.data.orderId
+        },(err)=>{
+             console.log(err)
+        })
+      },
+      onChangeBanks(bankObj){
+        //  子组件在改变选中银行时父组件要执行的方法
+  
+        this.bankId = bankObj.id
+        console.log(this.bankId)
+      },
+      showPayDialog(){
+          this.isShowPayDialog=true
+      },
+      hidePayDialog(){
+        this.isShowPayDialog = false
+      },
       onParamChange(attr,val){
           // val代表的是购买的数量
             this[attr] = val
             console.log(attr,this[attr])
+            // 每次组件更新后就或缺一次价格
+            this.getPrice()
       },
       getPrice(){
         let buyVersionsArray = _.map(this.versions,(item)=>{
@@ -191,12 +237,22 @@ export default {
            version:buyVersionsArray.join(',')
       }
       this.$http.post("api/getPrice",reqParams).then((res)=>{
-        let data = res.data
+        let data = res.data.amount
            
       })
       }
 
       
+    },
+    mounted(){
+      // mounted方法是组件都渲染完了再执行，相当于小程序里面的onload
+      // 给几个组件的内容一个初始值
+      this.buyNum = 1
+      this.buyType = this.buyTypes[0]
+      this.versions = [this.versionList[0]]
+      this.period = this.periodList[0]
+      // 获取一下当下价格
+      this.getPrice()
     }
 }
 </script>
