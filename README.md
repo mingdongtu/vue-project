@@ -34,4 +34,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 #在引入的组件里面插入内容，首先需要在被引用的组件里面添加slot标签 给予name属性，然后在父组件里面在要插入的内容最外层标签添加slot属性
 
 #注意：vue-resource 引入后使用use()方法后就不需要再进行其他配置
-            
+
+#切换到vuex分支            
