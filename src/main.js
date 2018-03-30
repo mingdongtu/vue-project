@@ -11,6 +11,8 @@ import DetailCouPage from './pages/detail/count'
 import DetailForPage from './pages/detail/forecast'
 import DetailPubPage from './pages/detail/publish'
 import OrderListPage from './pages/orderList'
+// 将数据中心引入进来
+import store from './store/index'
 /* eslint-disable no-new */
 Vue.use(VueRouter)
 // VueResource 不需要其他的配置
@@ -58,7 +60,7 @@ let router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<Layout/>',
   components: { Layout }
-
 })

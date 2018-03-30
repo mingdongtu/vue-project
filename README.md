@@ -34,4 +34,18 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 #在引入的组件里面插入内容，首先需要在被引用的组件里面添加slot标签 给予name属性，然后在父组件里面在要插入的内容最外层标签添加slot属性
 
 #注意：vue-resource 引入后使用use()方法后就不需要再进行其他配置
+
+#注意：对vue进行实例化的时候里面的参数不能包含大写
+new Vue({
+  el: '#app',
+  router,
+  Store,
+  template: '<Layout/>',
+  components: { Layout }
+})
+上面“Store”就是错误的写法
+
+#使用export default命令，为模块指定默认输出，这样就不需要知道所要加载模块的变量名
+
+
             
