@@ -1,6 +1,6 @@
 <template>
 <!--注意:每个组件只有一个统一的根节点-->
-    <div>
+    <div @click="resetSelect">
         <div class="app-head">
               <div class="app-head-inner">
                 
