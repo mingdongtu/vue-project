@@ -1,3 +1,4 @@
+<!--这个是根组件-->
 <template>
 <!--注意:每个组件只有一个统一的根节点-->
     <div >
@@ -23,6 +24,7 @@
               </div>
         </div>
         <div class="app-content">
+          
             <keep-alive>
                 <router-view></router-view>
             </keep-alive>

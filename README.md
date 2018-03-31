@@ -49,4 +49,8 @@ new Vue({
 
 #提交到vuex分支
 
+#vue-router 和 vue-resource 在入口文件里面进行全局配置，其中vue-resource 在调用Vue.use()方法后不需要再传到vue实例里
+
+#页面初次加载的时候，若当前页面存在路由，就要在入口文件main.js中配置开始页面，后期点击切换页面的时候，基于开始页面在入口文件main.js里面配置, 对于嵌套路由使用children配置
+
             

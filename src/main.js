@@ -15,7 +15,7 @@ import OrderListPage from './pages/orderList'
 import store from './store/index'
 /* eslint-disable no-new */
 Vue.use(VueRouter)
-// VueResource 不需要其他的配置
+// VueResource 不需要其他的配置，这个也是全局的通过this.$http
 Vue.use(VueResource)
 // 实例化vue-router
 let router = new VueRouter({
@@ -56,7 +56,7 @@ let router = new VueRouter({
 
        ]
 })
-
+//全局的路由和状态管理
 new Vue({
   el: '#app',
   router,

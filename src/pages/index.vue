@@ -1,3 +1,5 @@
+<!--这个作为layout组件的主要内容插入进去-->
+
 <template>
     <div class="index-wrap">
           <div class="index-left">

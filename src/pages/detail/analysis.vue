@@ -219,17 +219,19 @@ export default {
         //  子组件在改变选中银行时父组件要执行的方法
   
         this.bankId = bankObj.id
-        console.log(this.bankId)
+        console.log(this)
       },
       showPayDialog(){
           this.isShowPayDialog=true
       },
       hidePayDialog(){
         this.isShowPayDialog = false
+        console.log(this)
       },
       hideCheckDialog(){
         // 隐藏状态检查弹窗
   this.isShowCheckOrder=false
+  console.log(this)
       },
       onParamChange(attr,val){
           // val代表的是购买的数量

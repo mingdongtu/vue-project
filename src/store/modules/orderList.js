@@ -2,7 +2,7 @@
 import Vue from 'vue'
 const state = {  //存放数据
     // 请求回来的数据
-    orderList,
+    // orderList,
     // 请求参数
     params:{}
 }
