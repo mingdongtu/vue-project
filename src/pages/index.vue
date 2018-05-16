@@ -43,8 +43,7 @@
                   <div class="index-board-button">
                      <router-link :to="{path:item.href}">
                             <a href="" class="button">立即购买</a>
-                     </router-link>
-                     
+                     </router-link>                     
                   </div>
                 </div>
              </div>

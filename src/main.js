@@ -57,10 +57,12 @@ let router = new VueRouter({
        ]
 })
 //全局的路由和状态管理
-new Vue({
+let myvue=new Vue({
   el: '#app',
   router,
   store,
   template: '<Layout/>',
-  components: { Layout }
+  components: {
+     Layout: Layout }
 })
+console.log(myvue)

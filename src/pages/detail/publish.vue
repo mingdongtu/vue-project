@@ -18,6 +18,9 @@
                   行业：
               </div>
               <div class="sales-board-line-right">
+
+
+
                   <v-selection :selections="tradeList"></v-selection>
               </div>
           </div>

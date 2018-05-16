@@ -13,7 +13,6 @@
          </div>
      </div>
 </template>
-
 <script>
 export default {
     // 父组件向子组件传递数据
@@ -53,7 +52,7 @@ export default {
 }
 
 .dialog-wrap {
-  position: fixed;
+  position:fixed;
   width: 100%;
   height: 100%;
 }

@@ -11,7 +11,9 @@
               </div>
               <div class="sales-board-line-right">
                 <!-- 计数组件 -->
-                <v-counter :max='100' :min="1" @on-change="onParamChange('buyNum',$event)"></v-counter>
+                <v-counter :max='100' :min="1" @on-change="onParamChange('buyNum',$event)">
+                       
+                </v-counter>
               </div>
           </div>
           <div class="sales-board-line">
@@ -147,7 +149,7 @@ export default {
               period:{},
               isShowPayDialog:false,
               isShowCheckOrder:false,
-             buyTypes:[
+              buyTypes:[
                {
                  label:'入门版',
                  value:0
@@ -236,8 +238,8 @@ export default {
       onParamChange(attr,val){
           // val代表的是购买的数量
             this[attr] = val
-            console.log(attr,this[attr])
-            // 每次组件更新后就或缺一次价格
+            console.log(this,this[attr])
+            // 每次组件更新后就获取一次价格
             this.getPrice()
       },
       getPrice(){
